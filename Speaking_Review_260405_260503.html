@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Speaking Review Sheet · 260405–260503</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #faf7f2;
+    --cream: #f0ebe0;
+    --accent: #c8553d;
+    --accent2: #4a7c59;
+    --accent3: #d4a017;
+    --muted: #7a7065;
+    --border: #d8cfc3;
+    --card-bg: #ffffff;
+    --shadow: 0 2px 12px rgba(26,26,46,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ─── PRINT ─── */
+  @media print {
+    body { background: white; font-size: 11pt; }
+    .no-print { display: none !important; }
+    .page-break { page-break-before: always; }
+    .card { box-shadow: none; border: 1px solid #ccc; }
+    .timer-btn, .reveal-btn, .hint-toggle { display: none; }
+    .hint-box { display: block !important; opacity: 1 !important; }
+    header { background: white; color: black; border-bottom: 3px solid black; }
+    .part-header { background: var(--ink) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 32px 40px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute; top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(200,85,61,0.15);
+  }
+  header::after {
+    content: '';
+    position: absolute; bottom: -30px; left: 20%;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: rgba(74,124,89,0.12);
+  }
+  .header-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    gap: 20px; flex-wrap: wrap;
+  }
+  .sheet-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 6px;
+  }
+  h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.4rem; line-height: 1.1;
+    font-weight: 400;
+  }
+  h1 em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .header-meta {
+    font-size: 12px; color: rgba(250,247,242,0.6);
+    margin-top: 10px; letter-spacing: 0.05em;
+  }
+  .badge-row {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    margin-top: 20px;
+  }
+  .badge {
+    background: rgba(250,247,242,0.1);
+    border: 1px solid rgba(250,247,242,0.2);
+    color: var(--paper);
+    font-size: 11px; padding: 4px 12px;
+    border-radius: 20px; letter-spacing: 0.05em;
+  }
+  .badge.accent { background: var(--accent); border-color: var(--accent); }
+
+  .no-print {
+    text-align: right;
+    padding: 10px 40px;
+    background: var(--cream);
+    border-bottom: 1px solid var(--border);
+  }
+  .print-btn {
+    background: var(--ink); color: var(--paper);
+    border: none; padding: 8px 20px; border-radius: 6px;
+    font-family: 'DM Sans', sans-serif; font-size: 13px;
+    cursor: pointer; letter-spacing: 0.04em;
+    transition: opacity 0.2s;
+  }
+  .print-btn:hover { opacity: 0.8; }
+
+  /* ─── LAYOUT ─── */
+  main {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+  }
+
+  .part {
+    margin-bottom: 48px;
+  }
+
+  .part-header {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px 20px;
+    border-radius: 10px 10px 0 0;
+    margin-bottom: 0;
+  }
+  .part-number {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.6rem; color: var(--accent);
+    min-width: 32px; line-height: 1;
+  }
+  .part-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem; font-weight: 400;
+    letter-spacing: 0.01em;
+  }
+  .part-subtitle {
+    font-size: 12px; color: rgba(250,247,242,0.6);
+    margin-left: auto; text-align: right;
+    white-space: nowrap;
+  }
+  .part-body {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 10px 10px;
+    padding: 24px;
+  }
+  .instruction {
+    font-size: 13px; color: var(--muted);
+    font-style: italic; margin-bottom: 20px;
+    padding: 10px 14px;
+    background: var(--cream);
+    border-left: 3px solid var(--accent3);
+    border-radius: 0 6px 6px 0;
+  }
+
+  /* ─── PART 1: VOCABULARY FLASHCARDS ─── */
+  .vocab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .flip-card {
+    height: 90px; cursor: pointer;
+    perspective: 800px;
+  }
+  .flip-inner {
+    width: 100%; height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  }
+  .flip-card.flipped .flip-inner {
+    transform: rotateY(180deg);
+  }
+  .flip-front, .flip-back {
+    position: absolute; inset: 0;
+    backface-visibility: hidden;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    padding: 10px 14px;
+    text-align: center;
+  }
+  .flip-front {
+    background: var(--ink);
+    color: var(--paper);
+    border: 2px solid transparent;
+  }
+  .flip-card:hover .flip-front {
+    border-color: var(--accent);
+  }
+  .flip-front .word {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
+  .flip-front .pos {
+    font-size: 10px; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 0.12em;
+    margin-top: 3px;
+  }
+  .flip-back {
+    background: var(--accent);
+    color: white;
+    transform: rotateY(180deg);
+    font-size: 13px; font-weight: 500;
+    line-height: 1.4;
+  }
+  .flip-hint {
+    font-size: 10px; text-align: center;
+    color: var(--muted); margin-top: 10px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── PART 2: GRAMMAR FOCUS ─── */
+  .grammar-section {
+    margin-bottom: 24px;
+  }
+  .grammar-section:last-child { margin-bottom: 0; }
+  .grammar-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent2);
+    margin-bottom: 12px;
+  }
+  .grammar-label::after {
+    content: '';
+    display: block; height: 1px; width: 40px;
+    background: var(--accent2);
+  }
+  .pattern-box {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent2);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1rem;
+    color: var(--ink);
+  }
+  .pattern-box span {
+    color: var(--accent);
+    font-style: italic;
+  }
+  .drill-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .drill-item {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 10px;
+    align-items: start;
+  }
+  .drill-num {
+    width: 24px; height: 24px;
+    background: var(--ink); color: var(--paper);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 600;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .drill-text {
+    font-size: 14px; color: var(--ink);
+    line-height: 1.5;
+  }
+  .drill-blank {
+    display: inline-block;
+    min-width: 120px; height: 1.5em;
+    border-bottom: 2px solid var(--accent3);
+    vertical-align: bottom;
+  }
+  .hint-toggle {
+    font-size: 11px; color: var(--accent2);
+    cursor: pointer; margin-left: 8px;
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+  .hint-box {
+    display: none;
+    font-size: 12px; color: var(--muted);
+    font-style: italic;
+    background: #f0faf4;
+    border: 1px solid #c3e6cb;
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin-top: 6px;
+    animation: fadeIn 0.25s ease;
+  }
+  .hint-box.visible { display: block; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:none; } }
+
+  /* ─── PART 3: ROLE PLAY ─── */
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .scenario-card {
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    background: var(--card-bg);
+    transition: border-color 0.2s, transform 0.15s;
+    cursor: default;
+  }
+  .scenario-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .scenario-icon {
+    font-size: 1.6rem; margin-bottom: 10px;
+  }
+  .scenario-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .scenario-text {
+    font-size: 13px; line-height: 1.55; color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .word-bank {
+    display: flex; flex-wrap: wrap; gap: 5px;
+  }
+  .word-chip {
+    font-size: 11px; padding: 2px 8px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 20px; color: var(--muted);
+  }
+
+  /* Timer */
+  .timer-area {
+    display: flex; align-items: center; gap: 12px;
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 16px;
+  }
+  .timer-label {
+    font-size: 12px; color: var(--muted); flex: 1;
+  }
+  .timer-display {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.8rem; color: var(--ink);
+    min-width: 60px; text-align: center;
+  }
+  .timer-display.running { color: var(--accent); }
+  .timer-display.done { color: var(--accent2); }
+  .timer-btn {
+    padding: 8px 16px;
+    border: none; border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px; font-weight: 600;
+    cursor: pointer; transition: all 0.15s;
+    letter-spacing: 0.04em;
+  }
+  .timer-btn.start { background: var(--accent); color: white; }
+  .timer-btn.stop  { background: var(--ink); color: white; }
+  .timer-btn.reset { background: var(--cream); color: var(--muted); border: 1px solid var(--border); }
+  .timer-btn:hover { opacity: 0.85; }
+
+  /* ─── PART 4: ERROR CORRECTION ─── */
+  .error-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .error-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .error-sentence {
+    font-size: 14px; margin-bottom: 10px;
+    color: var(--ink); line-height: 1.5;
+  }
+  .error-sentence .wrong {
+    color: #c0392b;
+    text-decoration: line-through wavy #c0392b;
+    font-style: italic;
+  }
+  .reveal-btn {
+    font-size: 11px; color: var(--accent2);
+    cursor: pointer; background: none; border: none;
+    font-family: 'DM Sans', sans-serif;
+    text-decoration: underline; padding: 0;
+  }
+  .correction-box {
+    display: none;
+    font-size: 13px; color: #2d6a4f;
+    background: #f0faf4;
+    border: 1px solid #c3e6cb;
+    border-radius: 6px;
+    padding: 8px 12px;
+    margin-top: 8px;
+    animation: fadeIn 0.25s ease;
+  }
+  .correction-box.visible { display: block; }
+  .correction-box strong { color: var(--accent2); }
+
+  /* ─── PART 5: DISCUSSION ─── */
+  .disc-list {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 16px;
+  }
+  .disc-item {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 14px;
+    align-items: start;
+  }
+  .disc-q-num {
+    width: 36px; height: 36px;
+    background: var(--accent3); color: white;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem; flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .disc-q-text {
+    font-size: 14px; line-height: 1.6; color: var(--ink);
+    padding-top: 6px;
+  }
+  .disc-q-cue {
+    font-size: 11px; color: var(--muted);
+    font-style: italic; margin-top: 4px;
+  }
+  .lines {
+    margin-top: 10px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .write-line {
+    border-bottom: 1px solid var(--border);
+    height: 28px;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    text-align: center;
+    font-size: 11px; color: var(--muted);
+    letter-spacing: 0.06em;
+    padding: 24px;
+    border-top: 1px solid var(--border);
+    margin-top: 24px;
+  }
+  footer span { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div>
+      <div class="sheet-label">Speaking Focus Review</div>
+      <h1>Choices, Habits &amp; <em>Change</em></h1>
+      <div class="header-meta">Units: 260405 · 260412 · 260419 · 260426 · 260503</div>
+    </div>
+  </div>
+  <div class="badge-row">
+    <span class="badge accent">Speaking</span>
+    <span class="badge">Vocabulary</span>
+    <span class="badge">Grammar Patterns</span>
+    <span class="badge">Role Play</span>
+    <span class="badge">Discussion</span>
+  </div>
+</header>
+
+<div class="no-print">
+  <button class="print-btn" onclick="window.print()">🖨 Print / Save PDF</button>
+</div>
+
+<main>
+
+  <!-- ══════════ PART 1 ══════════ -->
+  <section class="part">
+    <div class="part-header">
+      <div class="part-number">1</div>
+      <div>
+        <div class="part-title">Vocabulary Flashcards</div>
+      </div>
+      <div class="part-subtitle no-print">Click to flip · Say it aloud!</div>
+    </div>
+    <div class="part-body">
+      <div class="instruction">Flip each card to check the Chinese meaning. Before you flip — say the word aloud and try to use it in a sentence from memory.</div>
+
+      <div class="vocab-grid">
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front"><div><div class="word">overcome</div><div class="pos">verb</div></div></div>
+            <div class="flip-back">克服；戰勝（困難）</div>
+          </div>
+        </div>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front"><div><div class="word">adjust to</div><div class="pos">phrasal v.</div></div></div>
+            <div class="flip-back">適應；習慣於</div>
+          </div>
+        </div>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front"><div><div class="word">perspective</div><div class="pos">noun</div></div></div>
+            <div class="flip-back">觀點；角度</div>
+          </div>
+        </div>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front"><div><div class="word">setback</div><div class="pos">noun</div></div></div>
+            <div class="flip-back">挫折；阻礙</div>
+          </div>
+        </div>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front"><div><div class="word">consistency</div><div class="pos">noun</div></div></div>
+            <div class="flip-back">一致性；持之以恆</div>
+          </div>
+        </div>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front"><div><div class="word">discipline</div><div class="pos">noun</div></div></div>
+            <div class="flip-back">自律；紀律</div>
+          </div>
+        </div>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front"><div><div class="word">intentional</div><div class="pos">adj.</div></div></div>
+            <div class="flip-back">有意的；刻意的</div>
+          </div>
+        </div>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front"><div><div class="word">consequence</div><div class="pos">noun</div></div></div>
+            <div class="flip-back">後果；結果</div>
+          </div>
+        </div>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front"><div><div class="word">trade-off</div><div class="pos">noun</div></div></div>
+            <div class="flip-back">取捨；權衡</div>
+          </div>
+        </div>
+        <div class="flip-card" onclick="this.classList.toggle('flipped')">
+          <div class="flip-inner">
+            <div class="flip-front"><div><div class="word">hesitate</div><div class="pos">verb</div></div></div>
+            <div class="flip-back">猶豫；遲疑</div>
+          </div>
+        </div>
+      </div>
+      <div class="flip-hint no-print">💡 Tip: Cover the English side with paper for an extra challenge!</div>
+    </div>
+  </section>
+
+
+  <!-- ══════════ PART 2 ══════════ -->
+  <section class="part">
+    <div class="part-header">
+      <div class="part-number">2</div>
+      <div>
+        <div class="part-title">Grammar Speaking Drill</div>
+      </div>
+      <div class="part-subtitle no-print">Speak first, then write</div>
+    </div>
+    <div class="part-body">
+      <div class="instruction">Study the grammar pattern, then complete each sentence ALOUD before you write. Click "Hint" if you need help.</div>
+
+      <!-- Pattern A -->
+      <div class="grammar-section">
+        <div class="grammar-label">Pattern A</div>
+        <div class="pattern-box">
+          <em>used to</em> + verb &nbsp;/&nbsp; <em>didn't use to</em> + verb
+        </div>
+        <ul class="drill-list">
+          <li class="drill-item">
+            <div class="drill-num">1</div>
+            <div>
+              <div class="drill-text">I used to <span class="drill-blank"></span>, but now I don't anymore.</div>
+              <span class="hint-toggle no-print" onclick="toggleHint(this)">Hint</span>
+              <div class="hint-box">Think of an old habit you've given up. (e.g., staying up late, eating fast food, etc.)</div>
+              <div class="lines"><div class="write-line"></div></div>
+            </div>
+          </li>
+          <li class="drill-item">
+            <div class="drill-num">2</div>
+            <div>
+              <div class="drill-text">I didn't use to enjoy <span class="drill-blank"></span>, but I've changed my mind because…</div>
+              <span class="hint-toggle no-print" onclick="toggleHint(this)">Hint</span>
+              <div class="hint-box">Think of something you disliked but now appreciate. (e.g., a type of food, a subject, exercise…)</div>
+              <div class="lines"><div class="write-line"></div></div>
+            </div>
+          </li>
+          <li class="drill-item">
+            <div class="drill-num">3</div>
+            <div>
+              <div class="drill-text">My <span class="drill-blank"></span> used to be very different when I was younger.</div>
+              <span class="hint-toggle no-print" onclick="toggleHint(this)">Hint</span>
+              <div class="hint-box">Fill in: routine / attitude / goals / lifestyle. Then explain how it's changed!</div>
+              <div class="lines"><div class="write-line"></div></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Pattern B -->
+      <div class="grammar-section">
+        <div class="grammar-label">Pattern B</div>
+        <div class="pattern-box">
+          <em>wish</em> + past simple &nbsp;(expressing a wish about the present)
+        </div>
+        <ul class="drill-list">
+          <li class="drill-item">
+            <div class="drill-num">4</div>
+            <div>
+              <div class="drill-text">I wish I <span class="drill-blank"></span> more time to focus on things that matter.</div>
+              <span class="hint-toggle no-print" onclick="toggleHint(this)">Hint</span>
+              <div class="hint-box">Use: had / spent / didn't waste. Remember: "wish + past simple" for present situations!</div>
+              <div class="lines"><div class="write-line"></div></div>
+            </div>
+          </li>
+          <li class="drill-item">
+            <div class="drill-num">5</div>
+            <div>
+              <div class="drill-text">I sometimes wish I <span class="drill-blank"></span>, because…</div>
+              <span class="hint-toggle no-print" onclick="toggleHint(this)">Hint</span>
+              <div class="hint-box">e.g., "I wish I lived abroad / could speak another language / were more patient…" Add a reason!</div>
+              <div class="lines"><div class="write-line"></div></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Pattern C -->
+      <div class="grammar-section">
+        <div class="grammar-label">Pattern C</div>
+        <div class="pattern-box">
+          <em>It takes</em> / <em>It costs</em> / <em>It spends</em> — choosing correctly
+        </div>
+        <ul class="drill-list">
+          <li class="drill-item">
+            <div class="drill-num">6</div>
+            <div>
+              <div class="drill-text">Building a good habit <span class="drill-blank"></span> (takes / costs / spends) a lot of consistency and patience.</div>
+              <span class="hint-toggle no-print" onclick="toggleHint(this)">Hint</span>
+              <div class="hint-box">"It takes time/effort" — use TAKES for time and effort. COSTS = money/sacrifice. SPEND = subject spends time/money.</div>
+              <div class="lines"><div class="write-line"></div></div>
+            </div>
+          </li>
+          <li class="drill-item">
+            <div class="drill-num">7</div>
+            <div>
+              <div class="drill-text">Changing careers <span class="drill-blank"></span> (takes / costs / spends) a lot of courage, and it can also <span class="drill-blank"></span> you financially.</div>
+              <span class="hint-toggle no-print" onclick="toggleHint(this)">Hint</span>
+              <div class="hint-box">First blank: "takes courage." Second blank: "cost you" (financial sacrifice).</div>
+              <div class="lines"><div class="write-line"></div><div class="write-line"></div></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════ PART 3 ══════════ -->
+  <section class="part">
+    <div class="part-header">
+      <div class="part-number">3</div>
+      <div>
+        <div class="part-title">Role Play Cards</div>
+      </div>
+      <div class="part-subtitle no-print">Pick one · Speak 60 sec+</div>
+    </div>
+    <div class="part-body">
+      <div class="instruction">Choose ONE scenario. Speak for at least 60 seconds. Use words from the word bank. Your teacher will ask 1–2 follow-up questions!</div>
+
+      <div class="scenario-grid">
+
+        <div class="scenario-card">
+          <div class="scenario-icon">🔄</div>
+          <div class="scenario-label">Scenario A</div>
+          <div class="scenario-text">Your close friend is thinking about quitting their stable job to start a small business. They ask for your honest opinion. What do you tell them? Do you encourage or caution them — or both?</div>
+          <div class="word-bank">
+            <span class="word-chip">trade-off</span>
+            <span class="word-chip">risk</span>
+            <span class="word-chip">stability</span>
+            <span class="word-chip">intentional</span>
+            <span class="word-chip">consequence</span>
+            <span class="word-chip">step back</span>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-icon">📅</div>
+          <div class="scenario-label">Scenario B</div>
+          <div class="scenario-text">You're being interviewed for a new role. The interviewer asks: "Tell me about a time you faced a setback. How did you overcome it and what did you learn?" Share a real or imagined example.</div>
+          <div class="word-bank">
+            <span class="word-chip">setback</span>
+            <span class="word-chip">overcome</span>
+            <span class="word-chip">perspective</span>
+            <span class="word-chip">discipline</span>
+            <span class="word-chip">adjusted to</span>
+            <span class="word-chip">in the end</span>
+          </div>
+        </div>
+
+        <div class="scenario-card">
+          <div class="scenario-icon">🌱</div>
+          <div class="scenario-label">Scenario C</div>
+          <div class="scenario-text">It's January 1st and you've decided to make one big change in your lifestyle this year. Describe what it is, why you chose it, and what you'll do differently from how things used to be.</div>
+          <div class="word-bank">
+            <span class="word-chip">used to</span>
+            <span class="word-chip">consistency</span>
+            <span class="word-chip">intentional</span>
+            <span class="word-chip">hesitate</span>
+            <span class="word-chip">I wish I had…</span>
+            <span class="word-chip">from now on</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Timer -->
+      <div class="timer-area no-print">
+        <div class="timer-label">⏱ Speaking Timer — aim for at least <strong>60 seconds</strong></div>
+        <div class="timer-display" id="timerDisplay">1:00</div>
+        <button class="timer-btn start" id="startBtn" onclick="startTimer()">Start</button>
+        <button class="timer-btn stop"  id="stopBtn"  onclick="stopTimer()" style="display:none">Pause</button>
+        <button class="timer-btn reset" onclick="resetTimer()">Reset</button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══════════ PART 4 ══════════ -->
+  <section class="part">
+    <div class="part-header">
+      <div class="part-number">4</div>
+      <div>
+        <div class="part-title">Spot the Error</div>
+      </div>
+      <div class="part-subtitle no-print">Find it · Fix it · Say it right!</div>
+    </div>
+    <div class="part-body">
+      <div class="instruction">Each sentence has ONE mistake. Say the correct version aloud, then click "Reveal" to check. Can you explain WHY it's wrong?</div>
+
+      <ul class="error-list">
+
+        <li class="error-item">
+          <div class="error-sentence">She <span class="wrong">used to working</span> late every night when she was in university.</div>
+          <button class="reveal-btn no-print" onclick="revealCorrection(this)">Reveal correction ▾</button>
+          <div class="correction-box">
+            ✅ <strong>She used to work late</strong> every night when she was in university.<br>
+            <em>Why: "used to" is followed by the base verb (infinitive), not "-ing".</em>
+          </div>
+        </li>
+
+        <li class="error-item">
+          <div class="error-sentence">It <span class="wrong">spends</span> a lot of time to learn a new language fluently.</div>
+          <button class="reveal-btn no-print" onclick="revealCorrection(this)">Reveal correction ▾</button>
+          <div class="correction-box">
+            ✅ <strong>It takes a lot of time</strong> to learn a new language fluently.<br>
+            <em>Why: "It takes time/effort" is the correct structure. "Spend" needs a subject (e.g., "She spends a lot of time…").</em>
+          </div>
+        </li>
+
+        <li class="error-item">
+          <div class="error-sentence">I wish I <span class="wrong">have</span> more discipline when it comes to exercise.</div>
+          <button class="reveal-btn no-print" onclick="revealCorrection(this)">Reveal correction ▾</button>
+          <div class="correction-box">
+            ✅ <strong>I wish I had</strong> more discipline when it comes to exercise.<br>
+            <em>Why: "wish" about the present uses past simple. "I wish I had…" (not "have").</em>
+          </div>
+        </li>
+
+        <li class="error-item">
+          <div class="error-sentence">My attitude to failure <span class="wrong">didn't used to be</span> so positive — I've grown a lot.</div>
+          <button class="reveal-btn no-print" onclick="revealCorrection(this)">Reveal correction ▾</button>
+          <div class="correction-box">
+            ✅ <strong>My attitude to failure didn't use to be</strong> so positive — I've grown a lot.<br>
+            <em>Why: In negatives, we say "didn't use to" (no extra 'd'). The 'd' is already in "didn't".</em>
+          </div>
+        </li>
+
+        <li class="error-item">
+          <div class="error-sentence">Making a big life change <span class="wrong">costs</span> a lot of courage and mental energy.</div>
+          <button class="reveal-btn no-print" onclick="revealCorrection(this)">Reveal correction ▾</button>
+          <div class="correction-box">
+            ✅ <strong>Making a big life change takes</strong> a lot of courage and mental energy.<br>
+            <em>Why: "costs" is for financial sacrifices or abstract loss. For time/effort/courage, use "takes".</em>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+
+  <!-- ══════════ PART 5 ══════════ -->
+  <section class="part">
+    <div class="part-header">
+      <div class="part-number">5</div>
+      <div>
+        <div class="part-title">Discussion Questions</div>
+      </div>
+      <div class="part-subtitle no-print">Answer in 3–5 sentences</div>
+    </div>
+    <div class="part-body">
+      <div class="instruction">Answer each question aloud in 3–5 sentences. Try to use vocabulary from this unit. You can also write key words in the lines provided.</div>
+
+      <ul class="disc-list">
+
+        <li class="disc-item">
+          <div class="disc-q-num">1</div>
+          <div>
+            <div class="disc-q-text">Think of one habit you've tried to build or break. Did consistency help, or did you give up? What would you do differently now?</div>
+            <div class="disc-q-cue">Try to use: <em>used to, consistency, discipline, setback, intentional</em></div>
+            <div class="lines"><div class="write-line"></div><div class="write-line"></div></div>
+          </div>
+        </li>
+
+        <li class="disc-item">
+          <div class="disc-q-num">2</div>
+          <div>
+            <div class="disc-q-text">Some people say: "Don't hesitate — just do it." Others say: "Think carefully before you act." Which advice do you follow more? Give an example.</div>
+            <div class="disc-q-cue">Try to use: <em>hesitate, trade-off, consequence, perspective, I wish I had…</em></div>
+            <div class="lines"><div class="write-line"></div><div class="write-line"></div></div>
+          </div>
+        </li>
+
+        <li class="disc-item">
+          <div class="disc-q-num">3</div>
+          <div>
+            <div class="disc-q-text">Do you think people can truly change their personalities, or do we mostly stay the same? Share your view with examples from real life.</div>
+            <div class="disc-q-cue">Try to use: <em>used to, adjust to, overcome, perspective, I didn't use to think that…</em></div>
+            <div class="lines"><div class="write-line"></div><div class="write-line"></div></div>
+          </div>
+        </li>
+
+        <li class="disc-item">
+          <div class="disc-q-num">4</div>
+          <div>
+            <div class="disc-q-text">Bonus: Describe a time in your life when everything felt uncertain. How did you adjust? What helped you the most?</div>
+            <div class="disc-q-cue">This is open — speak freely and try to use at least 3 words from today's vocabulary!</div>
+            <div class="lines"><div class="write-line"></div><div class="write-line"></div></div>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Prepared by <span>Sefina</span> &nbsp;·&nbsp; Units 260405–260503 &nbsp;·&nbsp; Speaking Focus Review
+</footer>
+
+<script>
+  // ── Hint Toggle ──
+  function toggleHint(btn) {
+    const box = btn.nextElementSibling;
+    box.classList.toggle('visible');
+    btn.textContent = box.classList.contains('visible') ? 'Hide' : 'Hint';
+  }
+
+  // ── Error Correction Reveal ──
+  function revealCorrection(btn) {
+    const box = btn.nextElementSibling;
+    box.classList.toggle('visible');
+    btn.textContent = box.classList.contains('visible') ? 'Hide ▲' : 'Reveal correction ▾';
+  }
+
+  // ── Speaking Timer ──
+  let timerInterval = null;
+  let seconds = 0;
+  let running = false;
+
+  function updateDisplay() {
+    const disp = document.getElementById('timerDisplay');
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    disp.textContent = m + ':' + String(s).padStart(2, '0');
+    if (running) disp.className = 'timer-display running';
+    else if (seconds > 0) disp.className = 'timer-display done';
+    else disp.className = 'timer-display';
+  }
+
+  function startTimer() {
+    if (running) return;
+    running = true;
+    document.getElementById('startBtn').style.display = 'none';
+    document.getElementById('stopBtn').style.display = '';
+    timerInterval = setInterval(() => {
+      seconds++;
+      updateDisplay();
+    }, 1000);
+  }
+
+  function stopTimer() {
+    running = false;
+    clearInterval(timerInterval);
+    document.getElementById('startBtn').style.display = '';
+    document.getElementById('stopBtn').style.display = 'none';
+    updateDisplay();
+  }
+
+  function resetTimer() {
+    stopTimer();
+    seconds = 0;
+    updateDisplay();
+  }
+</script>
+
+</body>
+</html>
